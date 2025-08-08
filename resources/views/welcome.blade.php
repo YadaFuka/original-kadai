@@ -44,6 +44,7 @@
                 ?>
 
                 <div>
+                    <livewire:books.search />
                     <h2 class="text-2xl font-bold mb-4">書籍一覧</h2>
 
                     @php
@@ -51,6 +52,20 @@
                     @endphp
 
                     @if($books->count() > 0)
+
+                    @foreach($books as $book)
+                        <a class="link link-hover text-info" href="{{ route('books.detail', $book->id) }}">
+                            <div class="card bg-base-100 shadow-xl">
+                                <div class="card-body">
+                                    <h2 class="catchcopy">{{ $book->catch_copy }}</h2>
+                                    <p class="detail">{{ $book->detail }}</p>
+                                    <p class="keyword">{{ $book->keyword_1 }}</p>
+                                    <p class="keyword">{{ $book->keyword_2 }}</p>
+                                    {{-- <p class="genre">{{ $book->genre }}</p> --}}
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
 
                     @else
                         <div class="alert">
@@ -63,5 +78,8 @@
                 @include('top')
             @endauth
         </div>
+        <fotter>
+            <p class="bg-gray">copyright</p>
+        </fotter>
     </body>
 </html>
