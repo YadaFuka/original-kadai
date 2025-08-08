@@ -1,4 +1,3 @@
-{{-- @extends('components.layouts.app') --}}
 
 @section('content')
     <div class="prose hero bg-slate-200 mx-auto max-w-full rounded">

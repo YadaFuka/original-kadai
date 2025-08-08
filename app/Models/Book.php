@@ -15,5 +15,6 @@ class Book extends Model
         'detail',
         'keyword_1',
         'keyword_2',
+        'title',
     ];
 }

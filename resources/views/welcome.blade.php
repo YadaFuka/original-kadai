@@ -11,10 +11,11 @@
     <body>
         <div class="navbar bg-base-100 justify-between">
             <a href="{{ route('home') }}" class="btn btn-ghost">
-                <img src="/images/logo.png" alt="Bookshelf"/>
+                とくめい図書室
             </a>
 
             @auth
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -29,19 +30,38 @@
         </div>
 
         <div class="hero shelf-message">
-            <div class="hero-overlay bg-opacity-60"></div>
-            <div class="hero-content text-center text-neutral-content">
-                <div class="max-w-md">
-                    <h1 class="mb-5 text-5xl md:text-6xl font-base font-serif">とくめい図書室</h1>
-                    <p>表紙がみえない本屋さん</p>
-                </div>
-            </div>
-        </div>
+            @auth
+                <?php
+                use App\Models\Book;
+                use Livewire\Attributes\Layout;
+                use Livewire\Volt\Component;
 
-        {{-- <div class="p-5">
-            <div class="max-w-5xl mx-auto">
-                {{ $slot }}
-            </div>
-        </div> --}}
+
+                    public function books()
+                    {
+                        return Book::all();
+                    }
+                ?>
+
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">書籍一覧</h2>
+
+                    @php
+                    $books = $this->books();
+                    @endphp
+
+                    @if($books->count() > 0)
+
+                    @else
+                        <div class="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>現在登録されている書籍はありません。</span>
+                        </div>
+                    @endif
+                </div>
+            @else
+                @include('top')
+            @endauth
+        </div>
     </body>
 </html>
